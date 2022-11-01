@@ -16,3 +16,4 @@ do
    	echo "[x] end of $i iteration"
 done
 echo "All done..............!"
+echo "done"
