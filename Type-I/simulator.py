@@ -15,11 +15,10 @@ from cache import Cache
 from bin_addr import BinaryAddress
 from reference import  Reference
 from table import Table
-from filehandler import writeFile
 
 REF_COL_NAMES = ('WordAddr', 'BinAddr', 'Tag', 'Partition', 'Index', 'Offset', 'Hit/Miss')
 MIN_BITS_PER_GROUP = 4
-DEFAULT_TABLE_WIDTH = 230
+DEFAULT_TABLE_WIDTH = 200
 
 
 class Simulator(object):
@@ -102,8 +101,8 @@ class Simulator(object):
         
         num_offset_bits = int(math.log2(num_words_per_block))
         
-#        print(cache_size, num_words_per_block)
-#        print(num_blocks, num_sets, ways_per_partition, num_offset_bits)
+        # print(cache_size, num_words_per_block)
+        # print(num_blocks, num_sets, ways_per_partition, num_offset_bits)
         
         num_index_bits = int(math.log2(num_sets))
         
@@ -120,25 +119,23 @@ class Simulator(object):
         cache.read_refs(num_blocks_per_set, num_words_per_block, num_partitions, replacement_policy, refs)
 #        print(cache)
         
-        # timing_vals = self.emulate_timing(refs)
+        timing_vals = self.emulate_timing(refs)
         
-        # refs = self.set_index(num_partitions, num_index_bits, refs)
-        # table_width = max((shutil.get_terminal_size((DEFAULT_TABLE_WIDTH, None)).columns, DEFAULT_TABLE_WIDTH))
+        refs = self.set_index(num_partitions, num_index_bits, refs)
+        table_width = max((shutil.get_terminal_size((DEFAULT_TABLE_WIDTH, None)).columns, DEFAULT_TABLE_WIDTH))
               
-#        for ref in refs:
-#            writeFile.write_cache_details(self, ref.word_addr, ref.partition, ref.index, ref.cache_status)
-#        print()
-#        self.display_addr_refs(refs, table_width)
-#        print()
-#        self.display_cache(cache, table_width, refs)
-#        print()
-#             
+        # print()
+        # self.display_addr_refs(refs, table_width)
+        # print()
+        # self.display_cache(cache, table_width, refs)
+        # print()
+            
         # for key, value in cache.items():
         #     for item in value:
         #         if (item['data'] == [2, 3]):
         #             print("No eviction")
         
-        # return timing_vals
+        return timing_vals
         
  
         

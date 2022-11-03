@@ -20,7 +20,7 @@
 
 using namespace std;
 
-const size_t mem_size = 1 << 18; // 2^12
+const size_t mem_size = 1 << 20; // 2^12
 
 void initPython()   {
     Py_Initialize();
@@ -173,13 +173,14 @@ int main(int argc, char* argv[])	{
 	    for (int j=0 ; j < sizeof(arr_4)/sizeof(arr_4[0]); j++)	{
 			if(arr_4[j] > 200)	{
 	   			if (ppp_set[j] != (long) reinterpret_cast<std::uintptr_t>(iVar))	{
+					printf("Getting val\n");
 	   				timing[j].push_back((int) dist_miss(generator));
 	   			}
 		    }
 	    }
 	}
 
-	FILE *fp = fopen("timing_new_algorithm_run_4.txt", "w");
+	FILE *fp = fopen("timing_normcache_onepart.txt", "w");
 	for (int i = 0; i < evset_size; i++)	{
 		for (auto it = timing[i].begin(); it!= timing[i].end(); ++it)	{
 			fprintf(fp, "%d ", *it);

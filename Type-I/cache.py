@@ -36,8 +36,6 @@ class Cache(dict):
         global cal_index
         num_index_bits = int(len(addr_index) / num_partitions)
         blocks = []
-        print(self)
-        print('-------------------------')
         if addr_index is None:
             blocks = self[str(0).zfill(num_index_bits)]
         else:
@@ -51,8 +49,6 @@ class Cache(dict):
                         continue
                     else:
                         blocks = self[str(i)+str(actual_index)]
-                        print('dhuklam')
-                        print(blocks)
                         for block in blocks:
                             if (block['tag'] == addr_tag):
                                 partition = i
@@ -103,7 +99,6 @@ class Cache(dict):
                 ref.index = cal_index
                     
             else:
-                print('here')
                 ref.cache_status = ReferenceCacheStatus.miss
                 self.set_block(
                         replacement_policy = replacement_policy,
