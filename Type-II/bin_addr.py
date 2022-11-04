@@ -6,8 +6,6 @@ Created on Tue May 18 19:44:28 2021
 @author: anirban
 """
 import random
-from present import Present
-from filehandler import writeFile
 
 class BinaryAddress(str):
     partition = None
@@ -46,24 +44,7 @@ class BinaryAddress(str):
         return partition        
         
         
-    def get_index(self, num_offset_bits, num_index_bits, num_partitions):
-        global partition
-        plaintext = bin(int(self[:-(num_offset_bits)], 2))[2:].zfill(64)
-        key = bin(int('00000000000000000000', 16))[2:].zfill(80)
-        cipher = Present(key)
-        ciphertext = cipher.encrypt(plaintext)
-        ciphertext = str(bin(int(ciphertext, 16))[2:].zfill(64))
-        # this line will cancel the randomization of address
-#        ciphertext = self
-        start = len(ciphertext) - num_offset_bits - (num_partitions * num_index_bits)
-        end = len(ciphertext) - num_offset_bits
-        index = ciphertext[start:end]
-#        writeFile.write_address(plaintext, ciphertext)
-        if (len(index) != 0):
-            return index
-        else:
-            return None
-        '''
+    def get_index(self, num_offset_bits, num_index_bits, num_partitions):  
         start = len(self) - num_offset_bits - num_index_bits
         end = len(self) - num_offset_bits
         index = self[start:end]
@@ -71,7 +52,7 @@ class BinaryAddress(str):
             return index
         else:
             return None
-        '''
+        
     def get_offset(self, num_offset_bits):
         start = len(self) - num_offset_bits
         offset = self[start:]

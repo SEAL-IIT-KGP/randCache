@@ -105,8 +105,9 @@ def main(address):
 #     return timing_list
     
 
-# if __name__ == '__main__':
-#     main([3, 80, 41, 786, 874, 875, 198, 456, 675, 325, 81, 142, 712, 564, 560, 345]) 
+if __name__ == '__main__':
+#     main([3, 80, 41, 786, 874, 875, 198, 456, 675, 325, 81, 142, 712, 564, 560, 345])
+    main([3, 80, 2, 81])
     # target_address = 3
     # M = []
     # random.seed()
@@ -114,7 +115,7 @@ def main(address):
     # for i in range(10):
     #     address = random.randint(10, 500)
     #     M.append(address)
-    # main(M)
+    #main(M)
     
     
     

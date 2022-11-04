@@ -34,25 +34,28 @@ class Cache(dict):
     def is_hit(self, addr_partition, addr_index, addr_tag, num_partitions):
         global partition
         global cal_index
-        num_index_bits = int(len(addr_index) / num_partitions)
-        blocks = []
         print(self)
-        print('-------------------------')
+        print(addr_partition, addr_index, addr_tag, num_partitions)
+#        num_index_bits = int(len(addr_index) / num_partitions)
+        num_index_bits = len(addr_index)
+        blocks = []
         if addr_index is None:
             blocks = self[str(0).zfill(num_index_bits)]
         else:
-            num_index_bits = int(len(addr_index) / num_partitions)
+            num_index_bits = len(addr_index)
             for i in range(num_partitions):
                 start = len(addr_index) - ((i + 1) * num_index_bits)
                 end = len(addr_index) - (i * num_index_bits)
                 actual_index = addr_index[start:end]
+                print(actual_index)
                 if (str(i)+str(actual_index)) in self:
                     if self[(str(i)+str(actual_index))] == []:
+                        print("inside if")
                         continue
                     else:
+                        print(str(i)+str(actual_index))
+                        print("here")
                         blocks = self[str(i)+str(actual_index)]
-                        print('dhuklam')
-                        print(blocks)
                         for block in blocks:
                             if (block['tag'] == addr_tag):
                                 partition = i
@@ -64,7 +67,6 @@ class Cache(dict):
         return False
                 
     def replace_block(self, blocks, replacement_policy, num_blocks_per_set, addr_partition, num_partition, addr_index, new_entry):
-#        print("replacing block")
         if (replacement_policy == 'rand'):
             repl_block_index = random.randint(0, (num_blocks_per_set // num_partition) - 1)
             for (i, block) in enumerate(blocks):
@@ -80,14 +82,15 @@ class Cache(dict):
                         return
                 
     def set_block(self, replacement_policy, num_blocks_per_set, addr_partition, num_partition, addr_index, new_entry):
-        num_index_bits = int(len(addr_index) / num_partition)
+        num_index_bits = len(addr_index)
+#        print(num_index_bits, addr_index, num_partition)
         if addr_index is None:
             blocks = self[str(0).zfill(num_index_bits)]
         else:
             start = len(addr_index) - ((addr_partition + 1) * num_index_bits)
             end = len(addr_index) - (addr_partition  * num_index_bits) 
             addr_index = addr_index[start:end]
-            blocks = self[str(addr_partition)+ (str(addr_index).zfill(num_index_bits))]
+            blocks = self[str(addr_partition)+(str(addr_index).zfill(num_index_bits))]
         if (len(blocks) == (num_blocks_per_set // num_partition)):
             self.replace_block(blocks, replacement_policy, num_blocks_per_set, addr_partition, num_partition, addr_index, new_entry)
         else:
@@ -96,15 +99,18 @@ class Cache(dict):
             
     def read_refs(self, num_blocks_per_set, num_words_per_block, num_partitions, replacement_policy, refs):
         for ref in refs:
+            print("")
+        for ref in refs:
             self.mark_ref_as_last_seen(ref)
             if self.is_hit(ref.partition, ref.index, ref.tag, num_partitions):
+                print("got a hit")
                 ref.cache_status = ReferenceCacheStatus.hit
                 ref.partition = partition
                 ref.index = cal_index
                     
             else:
-                print('here')
                 ref.cache_status = ReferenceCacheStatus.miss
+                print(ref.partition, ref.index, num_partitions)
                 self.set_block(
                         replacement_policy = replacement_policy,
                         num_blocks_per_set = num_blocks_per_set,
