@@ -5,8 +5,6 @@ Created on Tue May 18 17:00:37 2021
 
 @author: anirban
 """
-
-
 import math
 import shutil
 from collections import OrderedDict
@@ -15,7 +13,6 @@ from cache import Cache
 from bin_addr import BinaryAddress
 from reference import  Reference
 from table import Table
-from filehandler import writeFile
 
 REF_COL_NAMES = ('WordAddr', 'BinAddr', 'Tag', 'Partition', 'Index', 'Offset', 'Hit/Miss')
 MIN_BITS_PER_GROUP = 4
@@ -102,23 +99,24 @@ class Simulator(object):
         
         num_offset_bits = int(math.log2(num_words_per_block))
         
-#        print(cache_size, num_words_per_block)
-#        print(num_blocks, num_sets, ways_per_partition, num_offset_bits)
+        print(cache_size, num_words_per_block)
+        print(num_blocks, num_sets, ways_per_partition, num_offset_bits)
         
         num_index_bits = int(math.log2(num_sets))
         
         num_tag_bits = num_addr_bits - num_index_bits - num_offset_bits
         
-#        print(num_addr_bits, num_tag_bits, num_index_bits, num_offset_bits)
+        print(num_addr_bits, num_tag_bits, num_index_bits, num_offset_bits)
         
         refs = self.get_addr_refs(word_addrs, num_addr_bits, num_offset_bits, num_index_bits, num_tag_bits, num_partitions, ways_per_partition)
-#        print(refs)
+        print(refs)
+        print("")
   
     
         cache = Cache(num_sets = num_sets, num_index_bits = num_index_bits, num_partitions = num_partitions, ways_per_partition = ways_per_partition)
         
         cache.read_refs(num_blocks_per_set, num_words_per_block, num_partitions, replacement_policy, refs)
-#        print(cache)
+        print(cache)
         
         # timing_vals = self.emulate_timing(refs)
         

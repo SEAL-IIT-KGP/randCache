@@ -7,7 +7,6 @@ Created on Fri May 28 14:29:38 2021
 """
 import matplotlib.pyplot as plt
 import numpy as np
-import scipy.stats as stats
 
 
 with open("timing_new_algorithm_attack_2.txt", 'r') as f1:
