@@ -52,8 +52,6 @@ class BinaryAddress(str):
         cipher = Present(key)
         ciphertext = cipher.encrypt(plaintext)
         ciphertext = str(bin(int(ciphertext, 16))[2:].zfill(64))
-        # this line will cancel the randomization of address
-#        ciphertext = self
         start = len(ciphertext) - num_offset_bits - (num_partitions * num_index_bits)
         end = len(ciphertext) - num_offset_bits
         index = ciphertext[start:end]

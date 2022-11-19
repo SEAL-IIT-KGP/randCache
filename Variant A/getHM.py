@@ -22,7 +22,7 @@ for i, rows in enumerate(timing):
         count_hits[i] += 1
     timing[i] = rows
 
-count_hits = list(filter(lambda x: x > 5, count_hits))
+count_hits = list(filter(lambda x: x > 0, count_hits))
     
 
 index = []

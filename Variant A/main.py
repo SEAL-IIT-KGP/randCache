@@ -99,22 +99,8 @@ def main(address):
 
     timing_list = []
     for word, timing in timing_vals.items():
-#        print(word, timing)
         timing_list.append(timing)
     
     return timing_list
-    
-
-#if __name__ == '__main__':
-#    main([3, 80, 41, 786, 874, 875, 198, 456, 675, 325, 81, 142, 712, 564, 560, 345]) 
-    # target_address = 3
-    #M = []
-    # random.seed()
-    # M.append(target_address)
-    # for i in range(10):
-    #     address = random.randint(10, 500)
-    #     M.append(address)
-    #main(M)
-    
     
     

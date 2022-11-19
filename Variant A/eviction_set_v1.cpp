@@ -70,7 +70,7 @@ int main(int argc, char* argv[])	{
 	printf("%ld\n", (long) reinterpret_cast<std::uintptr_t>(iVar));
 	std::vector<long> eviction_set;
 
-	int attacker_accesses = 10;
+	int attacker_accesses = 16;
 	for (int k = 0; k < attacker_accesses; k++)	{
 		char* g_mem =  (char*)mmap(NULL, mem_size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 	    assert(g_mem != MAP_FAILED);
@@ -183,7 +183,6 @@ int main(int argc, char* argv[])	{
 		    		eviction_set.at(i) = 0;
 	    			evs_in_ev++;
 	    		}
-	    		printf("%ld\n", eviction_set.at(i));
 			}
 			printf("no. of evictions = %d\n", evs_in_ev);
 			eviction_set.erase( std::remove (eviction_set.begin(), eviction_set.end(), 0), eviction_set.end() );

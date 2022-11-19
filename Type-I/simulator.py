@@ -101,8 +101,8 @@ class Simulator(object):
         
         num_offset_bits = int(math.log2(num_words_per_block))
         
-        # print(cache_size, num_words_per_block)
-        # print(num_blocks, num_sets, ways_per_partition, num_offset_bits)
+#        print(cache_size, num_words_per_block)
+#        print(num_blocks, num_sets, ways_per_partition, num_offset_bits)
         
         num_index_bits = int(math.log2(num_sets))
         
@@ -129,11 +129,6 @@ class Simulator(object):
         # print()
         # self.display_cache(cache, table_width, refs)
         # print()
-            
-        # for key, value in cache.items():
-        #     for item in value:
-        #         if (item['data'] == [2, 3]):
-        #             print("No eviction")
         
         return timing_vals
         

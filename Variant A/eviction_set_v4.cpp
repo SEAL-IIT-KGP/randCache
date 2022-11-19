@@ -71,7 +71,7 @@ int main(int argc, char* argv[])	{
 	printf("%ld\n", (long) reinterpret_cast<std::uintptr_t>(iVar));
 	std::vector<long> eviction_set;
 
-	int iterations = 16;
+	int iterations = 8;
 	int pruning_iter = 5;
 	for (int k = 0; k < iterations; k++)	{
 		char* g_mem =  (char*)mmap(NULL, mem_size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
