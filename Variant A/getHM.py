@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-with open("timing_new_algorithm_attack_2.txt", 'r') as f1:
+with open("timing_new_algorithm_run_4.txt", 'r') as f1:
     file = f1.readlines()
     
 timing = list(filter(None, list(map(lambda each:each.strip("\n"), file))))
@@ -22,7 +22,7 @@ for i, rows in enumerate(timing):
         count_hits[i] += 1
     timing[i] = rows
 
-count_hits = list(filter(lambda x: x > 0, count_hits))
+count_hits = list(filter(lambda x: x > 5, count_hits))
     
 
 index = []
@@ -40,5 +40,5 @@ ax.xaxis.set_tick_params(labelsize=11)
 ax.yaxis.set_tick_params(labelsize=11)
 plt.xticks(weight = 'bold')
 plt.yticks(weight = 'bold')
-plt.savefig("scattercache_evset_16MB.pdf", dpi=1200, bbox_inches = 'tight')
-#plt.show()
+#plt.savefig("scattercache_evset_16MB.pdf", dpi=1200, bbox_inches = 'tight')
+plt.show()
