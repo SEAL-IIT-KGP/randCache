@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-with open("timing_ppp_part_no_rand.txt", 'r') as f1:
+with open("timing_new_part_no_rand.txt", 'r') as f1:
     file = f1.readlines()
     
 timing = list(filter(None, list(map(lambda each:each.strip("\n"), file))))
@@ -34,11 +34,11 @@ for i in range(1, len(count_hits) + 1):
 fig=plt.figure(figsize=(8, 2))
 ax = plt.gca()
 plt.bar(index, count_hits, width=0.5)
-plt.xlabel("Number of ways (associativity)", fontweight='bold', fontsize=12)
-plt.ylabel("Number of trials \n per collision", fontweight='bold', fontsize=12)
+plt.xlabel("probe locations", fontweight='bold', fontsize=12)
+plt.ylabel("Number of misses", fontweight='bold', fontsize=12)
 ax.xaxis.set_tick_params(labelsize=11)
 ax.yaxis.set_tick_params(labelsize=11)
 plt.xticks(weight = 'bold')
 plt.yticks(weight = 'bold')
-#plt.savefig("scattercache_evset_16MB.pdf", dpi=1200, bbox_inches = 'tight')
+plt.savefig("Type-II Skewed Cache.pdf", dpi=1200, bbox_inches = 'tight')
 plt.show()
