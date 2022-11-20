@@ -20,7 +20,7 @@
 
 using namespace std;
 
-const size_t mem_size = 1 << 20; // 2^12
+const size_t mem_size = 1 << 18; // 2^12
 
 void initPython()   {
     Py_Initialize();

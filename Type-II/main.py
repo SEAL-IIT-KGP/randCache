@@ -82,40 +82,26 @@ class Configs(dict):
 
             
 
-def main(address):
-#    cli_args = parse_cli_args()
-    
+def main(address):   
     parser = configparser.ConfigParser()
     parser.read('config.ini')
     
     sections = parser.sections()
     cli_args = Configs(parser[sections[0]])
-#    vars(cli_args)['replacement_policy'] = 'lru'
     vars(cli_args)['word_addrs'] = address    
     
     sim = Simulator()
     timing_vals = OrderedDict()
     timing_vals = sim.run_simulation(**vars(cli_args))
 
-#     timing_list = []
-#     for word, timing in timing_vals.items():
-# #        print(word, timing)
-#         timing_list.append(timing)
+    timing_list = []
+    for word, timing in timing_vals.items():
+        timing_list.append(timing)
     
-#     return timing_list
+    return timing_list
     
-
-if __name__ == '__main__':
-#     main([3, 80, 41, 786, 874, 875, 198, 456, 675, 325, 81, 142, 712, 564, 560, 345])
-    main([3, 80, 2, 81])
-    # target_address = 3
-    # M = []
-    # random.seed()
-    # M.append(target_address)
-    # for i in range(10):
-    #     address = random.randint(10, 500)
-    #     M.append(address)
-    #main(M)
     
+# if __name__ == '__main__':
+#     main([3, 80, 41, 786, 874, 875, 198, 456, 675, 325, 81, 142, 712, 564, 560, 345]) 
     
     

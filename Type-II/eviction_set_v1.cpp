@@ -19,7 +19,7 @@
 
 using namespace std;
  
-const size_t mem_size = 1 << 20;
+const size_t mem_size = 1 << 18;
 
 void initPython()   {
     Py_Initialize();
@@ -77,7 +77,7 @@ int main(int argc, char* argv[])	{
 	    memset(g_mem, 0xff, mem_size);
 
 
-	    int pruned_iter = 10;
+	    int pruned_iter = 20;
 	    std::vector<long> probing_set;
 	    uint64_t *end = (uint64_t *) (g_mem + mem_size);
 	    uint64_t *ptr;
@@ -224,7 +224,7 @@ int main(int argc, char* argv[])	{
 	    }
 	}
 
-	FILE *fp = fopen("timing_ppp_algorithm_run_4.txt", "w");
+	FILE *fp = fopen("timing_ppp_part_no_rand.txt", "w");
 	for (int i = 0; i < evset_size; i++)	{
 		for (auto it = timing[i].begin(); it!= timing[i].end(); ++it)	{
 			fprintf(fp, "%d ", *it);

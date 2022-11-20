@@ -7,10 +7,9 @@ Created on Fri May 28 14:29:38 2021
 """
 import matplotlib.pyplot as plt
 import numpy as np
-import scipy.stats as stats
 
 
-with open("timing_new_algorithm_attack_2.txt", 'r') as f1:
+with open("timing_ppp_part_no_rand.txt", 'r') as f1:
     file = f1.readlines()
     
 timing = list(filter(None, list(map(lambda each:each.strip("\n"), file))))
@@ -41,5 +40,5 @@ ax.xaxis.set_tick_params(labelsize=11)
 ax.yaxis.set_tick_params(labelsize=11)
 plt.xticks(weight = 'bold')
 plt.yticks(weight = 'bold')
-plt.savefig("scattercache_evset_16MB.pdf", dpi=1200, bbox_inches = 'tight')
-#plt.show()
+#plt.savefig("scattercache_evset_16MB.pdf", dpi=1200, bbox_inches = 'tight')
+plt.show()

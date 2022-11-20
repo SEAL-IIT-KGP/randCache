@@ -60,7 +60,6 @@ class Cache(dict):
         return False
                 
     def replace_block(self, blocks, replacement_policy, num_blocks_per_set, addr_partition, num_partition, addr_index, new_entry):
-#        print("replacing block")
         if (replacement_policy == 'rand'):
             repl_block_index = random.randint(0, (num_blocks_per_set // num_partition) - 1)
             for (i, block) in enumerate(blocks):

@@ -20,7 +20,7 @@
 
 using namespace std;
 
-const size_t mem_size = 1 << 18; // 2^12
+const size_t mem_size = 1 << 20; // 2^12
 
 void initPython()   {
     Py_Initialize();
@@ -71,7 +71,7 @@ int main(int argc, char* argv[])	{
 	printf("%ld\n", (long) reinterpret_cast<std::uintptr_t>(iVar));
 	std::vector<long> eviction_set;
 
-	int iterations = 16;
+	int iterations = 8;
 	int pruning_iter = 5;
 	for (int k = 0; k < iterations; k++)	{
 		char* g_mem =  (char*)mmap(NULL, mem_size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
@@ -179,7 +179,7 @@ int main(int argc, char* argv[])	{
 	    }
 	}
 
-	FILE *fp = fopen("timing_new_algorithm_run_4.txt", "w");
+	FILE *fp = fopen("timing_new_part_no_rand.txt", "w");
 	for (int i = 0; i < evset_size; i++)	{
 		for (auto it = timing[i].begin(); it!= timing[i].end(); ++it)	{
 			fprintf(fp, "%d ", *it);
