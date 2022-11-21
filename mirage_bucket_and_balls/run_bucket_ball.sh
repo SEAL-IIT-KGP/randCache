@@ -15,3 +15,6 @@ for i in $(seq 0 $times); do
 	sleep 1
 done
 
+
+python3 plotter.py
+

@@ -7,9 +7,9 @@ Created on Tue May 18 19:44:28 2021
 """
 import random
 from present import Present
-from filehandler import writeFile
 
 class BinaryAddress(str):
+    partition = None
     def __new__(cls, bin_addr=None, word_addr=None, num_addr_bits=0):
         if word_addr is not None:
             return super().__new__(cls, bin(word_addr)[2:].zfill(num_addr_bits))
@@ -37,46 +37,29 @@ class BinaryAddress(str):
             return None
         
     def get_partition(self, num_partitions, ways_per_partition):
-        partition = (0, 1)
-        
+        global partition
+        total_ways = num_partitions * ways_per_partition
+        if (num_partitions > total_ways):
+            num_partitions = total_ways
+        partition = random.randint(0, num_partitions - 1)
         return partition        
         
         
     def get_index(self, num_offset_bits, num_index_bits, num_partitions):
-        index1 = None; index2 = None; 
+        global partition
         plaintext = bin(int(self[:-(num_offset_bits)], 2))[2:].zfill(64)
-        key = bin(int('00000000000000002222', 16))[2:].zfill(80)
+        key = bin(int('00000000000000000011', 16))[2:].zfill(80)
         cipher = Present(key)
         ciphertext = cipher.encrypt(plaintext)
         ciphertext = str(bin(int(ciphertext, 16))[2:].zfill(64))
-        
-#        print(ciphertext)
-        
-        start = len(ciphertext) - num_offset_bits - num_index_bits
+        start = len(ciphertext) - num_offset_bits - (num_partitions * num_index_bits)
         end = len(ciphertext) - num_offset_bits
-        index1 = ciphertext[start:end]
-        
-        key = bin(int('00000000000000001111', 16))[2:].zfill(80)
-        cipher = Present(key)
-        ciphertext = cipher.encrypt(plaintext)
-        ciphertext = str(bin(int(ciphertext, 16))[2:].zfill(64))
-        start = len(ciphertext) - num_offset_bits - num_index_bits
-        end = len(ciphertext) - num_offset_bits
-        index2 = ciphertext[start:end]
-#        print(ciphertext)
-        
-#        print(index1, index2)
-        
-        return (index1, index2)
-        '''
-        start = len(self) - num_offset_bits - num_index_bits
-        end = len(self) - num_offset_bits
-        index = self[start:end]
-        if len(index) != 0:
+        index = ciphertext[start:end]
+        if (len(index) != 0):
             return index
         else:
             return None
-        '''
+
     def get_offset(self, num_offset_bits):
         start = len(self) - num_offset_bits
         offset = self[start:]
