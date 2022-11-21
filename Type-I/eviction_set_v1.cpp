@@ -224,7 +224,7 @@ int main(int argc, char* argv[])	{
 	    }
 	}
 
-	FILE *fp = fopen("timing_ppp_algorithm_run_4.txt", "w");
+	FILE *fp = fopen("timing_nopart_norand.txt", "w");
 	for (int i = 0; i < evset_size; i++)	{
 		for (auto it = timing[i].begin(); it!= timing[i].end(); ++it)	{
 			fprintf(fp, "%d ", *it);

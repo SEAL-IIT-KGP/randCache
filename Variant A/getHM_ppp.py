@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-with open("timing_new_nopart_rand_cache.txt", 'r') as f1:
+with open("timing_new_algorithm_run_4.txt", 'r') as f1:
     file = f1.readlines()
     
 timing = list(filter(None, list(map(lambda each:each.strip("\n"), file))))
@@ -40,5 +40,5 @@ ax.xaxis.set_tick_params(labelsize=11)
 ax.yaxis.set_tick_params(labelsize=11)
 plt.xticks(weight = 'bold')
 plt.yticks(weight = 'bold')
-plt.savefig("Type-III cache.pdf", dpi=1200, bbox_inches = 'tight')
+plt.savefig("scattercache_ppp_algo.pdf", dpi=1200, bbox_inches = 'tight')
 plt.show()
