@@ -95,7 +95,7 @@ class Simulator(object):
         
         
     def run_simulation(self, num_blocks_per_set, num_words_per_block, cache_size, num_partitions, replacement_policy, num_addr_bits, num_additional_tags, word_addrs):
-        num_data_blocks = (cache_size) // num_words_per_block
+        num_data_blocks = (cache_size//32) // num_words_per_block
         num_sets_per_skew = (num_data_blocks // num_partitions) // num_blocks_per_set
         num_tag_blocks_per_skew = num_sets_per_skew * (num_blocks_per_set + num_additional_tags)
         num_total_ways = num_blocks_per_set + num_additional_tags

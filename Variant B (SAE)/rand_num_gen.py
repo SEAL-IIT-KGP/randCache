@@ -9,59 +9,46 @@ Created on Fri Jul  1 12:16:04 2022
 
 import random 
 import os
-import numpy as np
-import matplotlib.pyplot as plt
+import math
 
 
 outfile = "outfile.txt"
 eviction_file = "eviction_status.txt"
+base = 16777216
+
 if os.path.exists(outfile):
     os.remove(outfile)
 
 with open("config.ini", "r") as f:
     lines = f.readlines()
 
-throws_list = [80000, ]
+cache_size = [16, 32, 64, 128]
+throws_list = [100000, 200000, 800000, 1500000]
+my_dict = {}
 
-for j in range(1):
+for j in range(len(cache_size)):
     if os.path.exists(eviction_file):
         os.remove(eviction_file)
     with open("config.ini", "w") as f:
         for line in lines:
             if line.strip("\n").startswith("cache-size"):
-                f.write("num-additional-tags="+str(j))
+                f.write("cache-size="+str(int(base * (int(math.pow(2,j)))))+"\n")
             else:
                 f.write(line)
     num = []
-    for i in range(80000):
+    for i in range(throws_list[j]):
         num.append(random.randint(0, 100000000))
     
     with open('address_list.txt', 'w') as filehandle:
         filehandle.writelines(str(num))
     os.system("python3 main.py")
-    
-    
-#    
-#with open('outfile.txt', 'r') as f:
-#    file = f.readlines()
-#
-#count = list(map(lambda each:each.strip("\n"), file))
-#
-#
-#valid_count = []
-#counter = 0
-#for i in range(len(count)):
-#    if (count[i] == ""):
-#        valid_count.append(counter)
-#        counter = 0
-#    else:
-#        counter += 1
-#        
-#        
-#print(np.mean(valid_count))
-#X = []
-#for i in range(len(valid_count)):
-#    X.append(i)
-#
-#plt.bar(X, valid_count)
-#plt.show()
+    with open(eviction_file) as f:
+        first_line = f.readline().strip('\n')
+    if first_line.strip("\n").startswith("valid"):
+        my_dict[str(cache_size[j])] = throws_list[j]
+    else:
+        my_dict[str(cache_size[j])] = -1
+
+with open(outfile, "a") as fout:
+    for key, value in my_dict.items(): 
+        fout.write('%s:%s\n' % (key, value))

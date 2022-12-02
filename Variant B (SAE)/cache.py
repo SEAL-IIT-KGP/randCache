@@ -106,7 +106,7 @@ class Cache(dict):
                 blocks[repl_block_index] = new_entry
                 return
             else:
-                print("valid eviction")
+                # print("valid eviction")
                 writeFile.write_eviction_status()
                 repl_block_index = random.randint(0, num_tags_per_set - 1)
                 for (index, block) in enumerate(blocks):
