@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-with open("timing_new_algorithm_run_4.txt", 'r') as f1:
+with open("timing_ppp_algorithm_run_4.txt", 'r') as f1:
     file = f1.readlines()
     
 timing = list(filter(None, list(map(lambda each:each.strip("\n"), file))))
