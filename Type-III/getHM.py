@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-with open("timing_new_nopart_rand_cache.txt", 'r') as f1:
+with open("timing_nopart_rand_cache.txt", 'r') as f1:
     file = f1.readlines()
     
 timing = list(filter(None, list(map(lambda each:each.strip("\n"), file))))

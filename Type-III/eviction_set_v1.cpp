@@ -19,7 +19,7 @@
 
 using namespace std;
  
-const size_t mem_size = 1 << 18;
+const size_t mem_size = 1 << 20;
 
 void initPython()   {
     Py_Initialize();
@@ -66,7 +66,7 @@ void remove_duplicates(std::vector<long> &v)
 
 int main(int argc, char* argv[])	{
 	initPython();
-	int *iVar = (int*)malloc(sizeof(int));
+	int *iVar = (int*)mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 	printf("%ld\n", (long) reinterpret_cast<std::uintptr_t>(iVar));
 	std::vector<long> eviction_set;
 
@@ -77,7 +77,7 @@ int main(int argc, char* argv[])	{
 	    memset(g_mem, 0xff, mem_size);
 
 
-	    int pruned_iter = 20;
+	    int pruned_iter = 2;
 	    std::vector<long> probing_set;
 	    uint64_t *end = (uint64_t *) (g_mem + mem_size);
 	    uint64_t *ptr;
@@ -168,34 +168,6 @@ int main(int argc, char* argv[])	{
     int evset_size = (int) eviction_set.size();
     printf("eviction set size = %d\n", evset_size);
 
-    // remove self evicting addresses inside eviction set
-    for (int i = 0; i < 10; i++)	{
-	    while(true)	{
-		    long final_set[2 * evset_size];
-		    for (int j = 0; j < 2 * evset_size; j++)	{
-		    	final_set[j] = eviction_set.at(j % evset_size);
-		    }
-		    int arr[evset_size];
-			callModuleFunc(final_set, (sizeof(final_set)/sizeof(final_set[0])), arr);
-			int evs_in_ev = 0;
-			for (int i=0 ; i < sizeof(arr)/sizeof(arr[0]); i++)	{
-	    		if(arr[i] > 200)	{
-		    		eviction_set.at(i) = 0;
-	    			evs_in_ev++;
-	    		}
-			}
-			printf("no. of evictions = %d\n", evs_in_ev);
-			eviction_set.erase( std::remove (eviction_set.begin(), eviction_set.end(), 0), eviction_set.end() );
-			evset_size = (int) eviction_set.size();
-			printf("final size = %d\n", evset_size);
-			if (evs_in_ev == 0)
-				break;
-		}
-	}
-
-    printf("eviction set size = %d\n", evset_size);
-
-
     // do the actual eviction now
 	long ppp_set[(2 * evset_size) + 1];
 	for (int i = 0; i < (2 * evset_size) + 1; ++i)
@@ -224,7 +196,7 @@ int main(int argc, char* argv[])	{
 	    }
 	}
 
-	FILE *fp = fopen("timing_ppp_nopart_rand_cache.txt", "w");
+	FILE *fp = fopen("timing_nopart_rand_cache.txt", "w");
 	for (int i = 0; i < evset_size; i++)	{
 		for (auto it = timing[i].begin(); it!= timing[i].end(); ++it)	{
 			fprintf(fp, "%d ", *it);
