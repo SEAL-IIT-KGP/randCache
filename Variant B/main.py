@@ -85,15 +85,12 @@ class Configs(dict):
 
             
 
-def main(address):
-#    cli_args = parse_cli_args()
-    
+def main(address):   
     parser = configparser.ConfigParser()
     parser.read('config.ini')
     
     sections = parser.sections()
     cli_args = Configs(parser[sections[0]])
-#    vars(cli_args)['replacement_policy'] = 'lru'
     vars(cli_args)['word_addrs'] = address    
     
 
@@ -101,34 +98,14 @@ def main(address):
     timing_vals = OrderedDict()
     timing_vals = sim.run_simulation(**vars(cli_args))
 
-#    timing_list = []
-##    for word, timing in timing_vals.items():
-###        print(word, timing)
-##        timing_list.append(timing)
-#    
-#    return timing_list
-#    
+    timing_list = []
+    for word, timing in timing_vals.items():
+        timing_list.append(timing)
+    
+    return timing_list
 
-if __name__ == '__main__':
-    address_list = []
-    with open('address_list.txt', 'r') as f:
-        file = f.read()
-
-#    tup = literal_eval(file)
-    main(tup)
-    print("")
-        
-    main([3, 80, 41, 786, 874, 875, 198, 456, 675, 325, 81, 142, 712, 564, 560, 345])
-#    target_address = 3
-#    no_of_addresses = 1 * 1000 * 1000
-#    M = []
-#    random.seed()
-##    M.append(target_address)
-#    for i in range(no_of_addresses):
-#        address = random.randint(1, 1048576)
-#        M.append(address)
-#    print("address generated")
-#    main(M)
+#if __name__ == '__main__':       
+#    main([3, 80, 41, 786, 874, 875, 198, 456, 675, 325, 81, 142, 712, 564, 560, 345])
     
     
     

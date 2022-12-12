@@ -7,7 +7,6 @@ Created on Tue May 18 19:44:28 2021
 """
 import random
 from present import Present
-from filehandler import writeFile
 
 class BinaryAddress(str):
     def __new__(cls, bin_addr=None, word_addr=None, num_addr_bits=0):
@@ -50,7 +49,6 @@ class BinaryAddress(str):
         ciphertext = cipher.encrypt(plaintext)
         ciphertext = str(bin(int(ciphertext, 16))[2:].zfill(64))
         
-#        print(ciphertext)
         
         start = len(ciphertext) - num_offset_bits - num_index_bits
         end = len(ciphertext) - num_offset_bits
@@ -63,20 +61,10 @@ class BinaryAddress(str):
         start = len(ciphertext) - num_offset_bits - num_index_bits
         end = len(ciphertext) - num_offset_bits
         index2 = ciphertext[start:end]
-#        print(ciphertext)
-        
-#        print(index1, index2)
         
         return (index1, index2)
-        '''
-        start = len(self) - num_offset_bits - num_index_bits
-        end = len(self) - num_offset_bits
-        index = self[start:end]
-        if len(index) != 0:
-            return index
-        else:
-            return None
-        '''
+
+
     def get_offset(self, num_offset_bits):
         start = len(self) - num_offset_bits
         offset = self[start:]

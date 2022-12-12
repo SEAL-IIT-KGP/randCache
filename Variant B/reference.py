@@ -28,6 +28,7 @@ class Reference(object):
         
         
         self.cache_status = None
+        self.eviction_type = None
         
         
     def __str__(self):
