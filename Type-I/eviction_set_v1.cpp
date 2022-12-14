@@ -76,6 +76,7 @@ int main(int argc, char* argv[])	{
 	    assert(g_mem != MAP_FAILED);
 	    memset(g_mem, 0xff, mem_size);
 
+
 	    int pruned_iter = 2;
 	    std::vector<long> probing_set;
 	    uint64_t *end = (uint64_t *) (g_mem + mem_size);

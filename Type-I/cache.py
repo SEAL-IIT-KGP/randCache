@@ -107,3 +107,28 @@ class Cache(dict):
                         addr_index = ref.index,
                         new_entry = ref.get_cache_entry(num_words_per_block)
                         )
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        

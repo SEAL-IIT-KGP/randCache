@@ -66,11 +66,12 @@ void remove_duplicates(std::vector<long> &v)
 
 int main(int argc, char* argv[])	{
 	initPython();
-	int *iVar = (int*)mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
+	int *iVar = (int*)malloc(sizeof(int));
+//	int *iVar = (int*)mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 	printf("%ld\n", (long) reinterpret_cast<std::uintptr_t>(iVar));
 	std::vector<long> eviction_set;
 
-	int attacker_accesses = 16;
+	int attacker_accesses = 20;
 	for (int k = 0; k < attacker_accesses; k++)	{
 		char* g_mem =  (char*)mmap(NULL, mem_size, PROT_READ | PROT_WRITE, MAP_ANON | MAP_PRIVATE, -1, 0);
 	    assert(g_mem != MAP_FAILED);

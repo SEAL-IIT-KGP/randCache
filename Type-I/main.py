@@ -99,14 +99,13 @@ def main(address):
 
     timing_list = []
     for word, timing in timing_vals.items():
-#        print(word, timing)
         timing_list.append(timing)
     
     return timing_list
     
 
+ 
 # if __name__ == '__main__':
 #     main([3, 80, 41, 786, 874, 875, 198, 456, 675, 325, 81, 142, 712, 564, 560, 345]) 
-    
-    
+      
     
