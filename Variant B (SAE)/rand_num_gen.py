@@ -22,8 +22,12 @@ if os.path.exists(outfile):
 with open("config.ini", "r") as f:
     lines = f.readlines()
 
-cache_size = [16, 32, 64, 128]
-throws_list = [100000, 200000, 800000, 1500000]
+# cache_size = [16, 32, 64, 128]
+# throws_list = [100000, 200000, 800000, 1500000]
+
+cache_size = [16]
+throws_list = [100000]
+
 my_dict = {}
 
 for j in range(len(cache_size)):

@@ -11,6 +11,7 @@ from simulator import Simulator
 from collections import OrderedDict
 import configparser 
 from ast import literal_eval
+import random
 
 def parse_cli_args():
 
@@ -98,6 +99,7 @@ def main(address):
     timing_vals = sim.run_simulation(**vars(cli_args))
 
 if __name__ == '__main__':
+    random.seed(10)
     address_list = []
     with open('address_list.txt', 'r') as f:
         file = f.read()

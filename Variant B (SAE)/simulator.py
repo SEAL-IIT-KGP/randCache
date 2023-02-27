@@ -12,6 +12,7 @@ import shutil
 from collections import OrderedDict
 
 from cache import Cache
+#from cache import DataStore
 from bin_addr import BinaryAddress
 from reference import  Reference
 from table import Table
@@ -61,7 +62,7 @@ class Simulator(object):
                     BinaryAddress.prettify(ref_index, MIN_BITS_PER_GROUP),
                     BinaryAddress.prettify(ref_offset, MIN_BITS_PER_GROUP),
                     ref.cache_status,
-                    ref.eviction_type))
+                    ref.valid))
         print(table)        
 
     def display_cache(self, cache, table_width, refs):
@@ -98,9 +99,10 @@ class Simulator(object):
         num_data_blocks = (cache_size//32) // num_words_per_block
         num_sets_per_skew = (num_data_blocks // num_partitions) // num_blocks_per_set
         num_tag_blocks_per_skew = num_sets_per_skew * (num_blocks_per_set + num_additional_tags)
+        num_data_blocks_per_skew = num_sets_per_skew * num_blocks_per_set
         num_total_ways = num_blocks_per_set + num_additional_tags
         
-        print(num_data_blocks, num_sets_per_skew, num_tag_blocks_per_skew)
+        print(num_data_blocks, num_sets_per_skew, num_tag_blocks_per_skew, num_data_blocks_per_skew)
 
         num_addr_bits = max(num_addr_bits, int(math.log2(max(word_addrs))) + 1)
         
@@ -112,11 +114,32 @@ class Simulator(object):
         
         
         refs = self.get_addr_refs(word_addrs, num_addr_bits, num_offset_bits, num_index_bits, num_tag_bits, num_partitions, num_tag_blocks_per_skew)
+
+#        print(refs)
      
         cache = Cache(num_data_blocks = num_data_blocks, num_sets_per_skew = num_sets_per_skew, num_index_bits = num_index_bits, num_partitions = num_partitions, num_tag_blocks_per_skew = num_tag_blocks_per_skew, num_addr_bits = num_addr_bits, num_offset_bits = num_offset_bits, num_total_ways = num_total_ways)
 
+
+        #print(cache)
+
+
+        print("")
+        print("... cache is initialized - tag store will some valid and some invalid; data store with all valid and remaining invalid")
+        print("")
+
         cache.read_refs(num_total_ways, num_partitions, replacement_policy, num_words_per_block, refs)
 
- 
+
+
+    #    table_width = max((shutil.get_terminal_size((DEFAULT_TABLE_WIDTH, None)).columns, DEFAULT_TABLE_WIDTH))
+
+        # print()
+        # self.display_addr_refs(refs, table_width)
+        # print()
+        # self.display_cache(cache, table_width, refs)
+        # print()
+
+
+        
         
         

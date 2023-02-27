@@ -24,9 +24,6 @@ class Reference(object):
         self.index = self.bin_addr.get_index(num_offset_bits, num_index_bits, num_partitions)
         self.tag = self.bin_addr.get_tag(num_tag_bits)
         self.valid = 0
-
-        
-        
         self.cache_status = None
         
         
@@ -39,7 +36,8 @@ class Reference(object):
         return {
                 'valid': 1,
                 'tag': self.tag,
-                'data': self.word_addr.get_consecutive_words(num_words_per_block)
+                'data': self.word_addr.get_consecutive_words(num_words_per_block),
+                'fptr': None 
                 }
         
 class ReferenceCacheStatus(Enum):
